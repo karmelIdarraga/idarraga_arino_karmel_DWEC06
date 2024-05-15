@@ -1,0 +1,21 @@
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col" *ngFor="let proyecto of this.proyectos">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">{{proyecto.isInbox() ? 'Bandeja de entrada' : 'Proyecto'}}<i class="fa fa-star rating-color" *ngIf="proyecto.isFavourite()"></i></h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">{{proyecto.getNombre()}}</h1>
+          <!-- <ul class="list-unstyled mt-3 mb-4">
+            <li>10 users included</li>
+            <li>2 GB of storage</li>
+            <li>Email support</li>
+            <li>Help center access</li>
+          </ul> -->
+          <button type="button" class="w-100 btn btn-lg btn-outline-primary" (click)="verTareas(proyecto.getId())">Ver Tareas</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<!-- <button type="button" class="w-20 btn btn-lg btn-outline-primary" (click)="cargarProyectos()">Cargar Proyectos</button> -->

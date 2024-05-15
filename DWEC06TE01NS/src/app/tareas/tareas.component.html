@@ -1,0 +1,153 @@
+<div class="d-flex flex-column flex-md-row  gap-4  align-items-center justify-content-center">
+    <div class="list-group ">
+        <label class="list-group-item d-flex gap-3" *ngFor="let tarea of this.tareas">
+            <!-- <input class="form-check-input flex-shrink-0" type="checkbox"  style="font-size: 1.375em;"> -->
+            <span class="pt-1 form-checked-content">
+                <strong>{{tarea.getNombre()}}</strong>
+                <button class="btn btn-light  m-3" title="Editar tarea" data-bs-toggle="modal" data-bs-target="#editarTarea" (click)="cargarTarea(tarea.id)"> <i class="far fa-edit"></i></button>                
+                <button class="btn btn-light" title="Marcar tarea como completada" data-bs-toggle="modal" data-bs-target="#staticBackdropCompletar" (click)="seleccionarTarea(tarea.id)"> <i class="far fa-check-square"></i></button> 
+                <button class="btn btn-light" title="Eliminar tarea" data-bs-toggle="modal" data-bs-target="#staticBackdropEliminar" (click)="seleccionarTarea(tarea.id)"> <i class="fas fa-trash-alt"></i></button>
+                <small class="d-block text-body-secondary">
+                <i class="far fa-calendar"></i>
+                {{tarea.getFechaLimite()}}
+                </small>
+                <small class="d-block text-body-secondary">
+                {{tarea.getDescripcion()}}
+                </small>
+            </span>
+        </label>
+        
+        <label class="list-group-item d-flex justify-content-center bg-body-tertiary">       
+            <span class="pt-1 form-checked-content">            
+                <button type="button" class="btn btn-light" (click)="resetearTarea()" data-bs-toggle="modal" data-bs-target="#nuevaTarea">
+                    Añadir tarea
+                </button>
+            </span>
+        </label>
+    </div>
+</div>
+
+
+<!-- Modal Alta-->
+<div class="modal fade" id="nuevaTarea" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva tarea</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #formNuevaTarea = "ngForm" (ngSubmit)="altaTarea()">
+                <div class="form-group">
+                  <label for="nombre">Nombre tarea: </label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" #nombre = "ngModel" [(ngModel)]="this.tarea.nombre">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción tarea</label>
+                    <textarea class="form-control" id="descripcion" rows="3" name="descripcion" #descripcion = "ngModel" [(ngModel)]="this.tarea.descripcion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="fechaLimite">Fecha límite: </label>
+                    <input type="date" pattern="YYYY-MM-DD" class="form-control" id="fechaLimite" name="fechaLimite" #fechaLimite = "ngModel" [(ngModel)]="this.tarea.fechaLimite">
+                  </div>
+                <div class="form-group">
+                  <label for="prioridad">Prioridad:</label>
+                  <select class="form-control" id="prioridad" name="priority" #priority = "ngModel" [(ngModel)]="this.tarea.priority">
+                    <option value="1">Normal</option>
+                    <option value="2">Importante</option>
+                    <option value="3">Alta</option>
+                    <option value="4">Urgente</option>
+                  </select>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="altaTarea()" data-bs-dismiss="modal">Crear Tarea</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal edición-->
+<div class="modal fade" id="editarTarea" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editarModalLabel">Editar tarea</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form #formNuevaTarea = "ngForm" (ngSubmit)="editarTarea()">
+              <div class="form-group">
+                <label for="nombre">Nombre tarea: </label>
+                <input type="text" class="form-control" id="nombre" name="nombre" #nombre = "ngModel" [(ngModel)]="this.tarea.nombre">
+              </div>
+              <div class="form-group">
+                  <label for="descripcion">Descripción tarea</label>
+                  <textarea class="form-control" id="descripcion" rows="3" name="descripcion" #descripcion = "ngModel" [(ngModel)]="this.tarea.descripcion"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="fechaLimite">Fecha límite: </label>
+                  <input type="date" pattern="YYYY-MM-DD" class="form-control" id="fechaLimite" name="fechaLimite" #fechaLimite = "ngModel" [(ngModel)]="this.tarea.fechaLimite">
+                </div>
+              <div class="form-group">
+                <label for="prioridad">Prioridad:</label>
+                <select class="form-control" id="prioridad" name="priority" #priority = "ngModel" [(ngModel)]="this.tarea.priority">
+                  <option value="1">Normal</option>
+                  <option value="2">Importante</option>
+                  <option value="3">Alta</option>
+                  <option value="4">Urgente</option>
+                </select>
+              </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="editarTarea()" data-bs-dismiss="modal">Guardar Tarea</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal eliminar -->
+<div class="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Tarea</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Se va a eliminar la tarea. Desea continuar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="eliminarTarea()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal completar -->
+<div class="modal fade" id="staticBackdropCompletar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel1">Completar Tarea</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Se va a marcar la tarea como completada. Desea continuar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="completarTarea()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
