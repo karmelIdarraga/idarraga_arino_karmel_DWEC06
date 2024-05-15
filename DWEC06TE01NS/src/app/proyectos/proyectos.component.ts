@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Proyecto } from '../models/Proyecto';
-import { ProyectosService } from '../services/proyectos.service';
 import { ConsultasToDoService } from '../services/consultasToDo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-proyectos',
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.css',
-  providers: [ProyectosService, ConsultasToDoService]
+  providers: [ ConsultasToDoService]
 })
 export class ProyectosComponent {
 
@@ -16,7 +15,7 @@ export class ProyectosComponent {
   private _route: ActivatedRoute;
   private _router: Router;
 
-  constructor( private _proyectosService : ProyectosService, private _consultasToDoService : ConsultasToDoService, _route: ActivatedRoute, _router: Router){
+  constructor( private _consultasToDoService : ConsultasToDoService, _route: ActivatedRoute, _router: Router){
     this._route = _route;
     this._router=_router;
   }

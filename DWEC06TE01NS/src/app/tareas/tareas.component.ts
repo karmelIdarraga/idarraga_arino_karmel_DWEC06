@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Tarea } from '../models/Tarea';
-import { TareasService } from '../services/tareas.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ConsultasToDoService } from '../services/consultasToDo.service';
 
@@ -8,7 +7,7 @@ import { ConsultasToDoService } from '../services/consultasToDo.service';
   selector: 'app-tareas',
   templateUrl: './tareas.component.html',
   styleUrl: './tareas.component.css',
-  providers: [TareasService, ConsultasToDoService]
+  providers: [ ConsultasToDoService]
 })
 export class TareasComponent {
 
@@ -20,7 +19,7 @@ export class TareasComponent {
   public mostrarForm : boolean = false;
   public idTareaSeleccionada : string = "";
 
-  constructor (private _tareasService : TareasService, private _consultasToDoService : ConsultasToDoService, _route: ActivatedRoute, _router: Router){
+  constructor ( private _consultasToDoService : ConsultasToDoService, _route: ActivatedRoute, _router: Router){
     this._route = _route;
     this._router=_router;
     this.tarea = new Tarea("", "", "", false, 1, "");
